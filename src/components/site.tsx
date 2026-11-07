@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { setBookLang } from "@/lib/book-lang";
 import type { Book } from "@/lib/books";
+import logoMark from "@/assets/logo-mark-small.png";
 
 type NavItem = {
   to: "/" | "/buecher" | "/autorin" | "/buchtipp" | "/blog" | "/faq";
@@ -42,7 +43,8 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <Link to="/" className="font-script text-3xl text-gilded leading-none pt-1">
+        <Link to="/" className="flex items-center gap-2 font-script text-3xl text-gilded leading-none pt-1">
+          <img src={logoMark} alt="" width={32} height={32} className="h-8 w-8 -mt-1" />
           Lilly Labord
         </Link>
         <nav className="hidden gap-7 md:flex">
