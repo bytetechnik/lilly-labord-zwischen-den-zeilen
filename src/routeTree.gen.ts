@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AutorinRouteImport } from './routes/autorin'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BuchtippRouteImport } from './routes/buchtipp'
+import { Route as DatenschutzRouteImport } from './routes/datenschutz'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ImpressumRouteImport } from './routes/impressum'
+import { Route as BuecherIndexRouteImport } from './routes/buecher.index'
+import { Route as BuecherSlugRouteImport } from './routes/buecher.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AutorinRoute = AutorinRouteImport.update({
+  id: '/autorin',
+  path: '/autorin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuchtippRoute = BuchtippRouteImport.update({
+  id: '/buchtipp',
+  path: '/buchtipp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DatenschutzRoute = DatenschutzRouteImport.update({
+  id: '/datenschutz',
+  path: '/datenschutz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpressumRoute = ImpressumRouteImport.update({
+  id: '/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuecherIndexRoute = BuecherIndexRouteImport.update({
+  id: '/buecher/',
+  path: '/buecher/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuecherSlugRoute = BuecherSlugRouteImport.update({
+  id: '/buecher/$slug',
+  path: '/buecher/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/autorin': typeof AutorinRoute
+  '/blog': typeof BlogRoute
+  '/buchtipp': typeof BuchtippRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/faq': typeof FaqRoute
+  '/impressum': typeof ImpressumRoute
+  '/buecher/$slug': typeof BuecherSlugRoute
+  '/buecher/': typeof BuecherIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/autorin': typeof AutorinRoute
+  '/blog': typeof BlogRoute
+  '/buchtipp': typeof BuchtippRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/faq': typeof FaqRoute
+  '/impressum': typeof ImpressumRoute
+  '/buecher/$slug': typeof BuecherSlugRoute
+  '/buecher': typeof BuecherIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/autorin': typeof AutorinRoute
+  '/blog': typeof BlogRoute
+  '/buchtipp': typeof BuchtippRoute
+  '/datenschutz': typeof DatenschutzRoute
+  '/faq': typeof FaqRoute
+  '/impressum': typeof ImpressumRoute
+  '/buecher/$slug': typeof BuecherSlugRoute
+  '/buecher/': typeof BuecherIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/autorin'
+    | '/blog'
+    | '/buchtipp'
+    | '/datenschutz'
+    | '/faq'
+    | '/impressum'
+    | '/buecher/$slug'
+    | '/buecher/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/autorin'
+    | '/blog'
+    | '/buchtipp'
+    | '/datenschutz'
+    | '/faq'
+    | '/impressum'
+    | '/buecher/$slug'
+    | '/buecher'
+  id:
+    | '__root__'
+    | '/'
+    | '/autorin'
+    | '/blog'
+    | '/buchtipp'
+    | '/datenschutz'
+    | '/faq'
+    | '/impressum'
+    | '/buecher/$slug'
+    | '/buecher/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AutorinRoute: typeof AutorinRoute
+  BlogRoute: typeof BlogRoute
+  BuchtippRoute: typeof BuchtippRoute
+  DatenschutzRoute: typeof DatenschutzRoute
+  FaqRoute: typeof FaqRoute
+  ImpressumRoute: typeof ImpressumRoute
+  BuecherSlugRoute: typeof BuecherSlugRoute
+  BuecherIndexRoute: typeof BuecherIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/autorin': {
+      id: '/autorin'
+      path: '/autorin'
+      fullPath: '/autorin'
+      preLoaderRoute: typeof AutorinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buchtipp': {
+      id: '/buchtipp'
+      path: '/buchtipp'
+      fullPath: '/buchtipp'
+      preLoaderRoute: typeof BuchtippRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/datenschutz': {
+      id: '/datenschutz'
+      path: '/datenschutz'
+      fullPath: '/datenschutz'
+      preLoaderRoute: typeof DatenschutzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impressum': {
+      id: '/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof ImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buecher/': {
+      id: '/buecher/'
+      path: '/buecher'
+      fullPath: '/buecher/'
+      preLoaderRoute: typeof BuecherIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buecher/$slug': {
+      id: '/buecher/$slug'
+      path: '/buecher/$slug'
+      fullPath: '/buecher/$slug'
+      preLoaderRoute: typeof BuecherSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AutorinRoute: AutorinRoute,
+  BlogRoute: BlogRoute,
+  BuchtippRoute: BuchtippRoute,
+  DatenschutzRoute: DatenschutzRoute,
+  FaqRoute: FaqRoute,
+  ImpressumRoute: ImpressumRoute,
+  BuecherSlugRoute: BuecherSlugRoute,
+  BuecherIndexRoute: BuecherIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
