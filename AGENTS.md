@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Book recommendation search runs server-side via Lovable AI (src/lib/book-match.*) and only returns IDs from the local catalog in src/lib/books.ts — keeps the API key off the client and prevents invented books.
