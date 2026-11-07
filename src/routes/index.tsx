@@ -3,6 +3,7 @@ import { useState } from "react";
 import hero from "@/assets/hero-study.jpg";
 import { books, categories, type Category } from "@/lib/books";
 import { BookCard, GoldButton, Sparks } from "@/components/site";
+import { bookListPath, useBookLang } from "@/lib/book-lang";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,6 +26,7 @@ const moods: Record<Category, { numeral: string; glyph: string; line: string }> 
 
 function Index() {
   const [mood, setMood] = useState<Category>("Magie");
+  const lang = useBookLang();
   const featured = books.filter((b) => b.featured);
   const shelf = books.filter((b) => b.category === mood);
 
@@ -47,7 +49,7 @@ function Index() {
             <a href="#lesen" className="rounded-sm bg-primary px-7 py-3 font-display text-lg text-primary-foreground shadow-glow">
               Was möchtest du lesen?
             </a>
-            <Link to="/buecher" className="self-center font-display text-lg text-primary underline-offset-8 hover:underline">
+            <Link to={bookListPath(lang)} className="self-center font-display text-lg text-primary underline-offset-8 hover:underline">
               Alle Bücher →
             </Link>
           </div>
@@ -125,7 +127,7 @@ function Index() {
       {/* Author teaser */}
       <section className="mx-auto max-w-5xl px-6 pt-36">
         <div className="parchment-panel relative grid items-center gap-10 rounded-md p-10 shadow-book md:grid-cols-[1fr_2fr] md:p-14">
-          <img src="/lilly.png" alt="Lilly Labord" loading="lazy" className="mx-auto w-56 rounded-full border-4 border-gold object-cover" />
+          <img src="/lilly-portrait.jpg" alt="Lilly Labord" loading="lazy" className="mx-auto w-56 rounded-full border-4 border-gold object-cover" />
           <div>
             <p className="font-script text-5xl">Hi, ich bin Lilly</p>
             <p className="mt-4 text-lg">
