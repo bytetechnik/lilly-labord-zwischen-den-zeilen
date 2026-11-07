@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import type { Book } from "@/lib/books";
 
@@ -29,6 +29,9 @@ const linkCls =
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [subOpen, setSubOpen] = useState(false);
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const isBooks = path.startsWith("/buecher") || path.startsWith("/books");
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
@@ -38,16 +41,32 @@ export function SiteHeader() {
         <nav className="hidden gap-7 md:flex">
           {nav.map((n) =>
             n.children ? (
-              <div key={n.to} className="group relative">
-                <Link to={n.to} className={`${linkCls} inline-flex items-center gap-1`} aria-haspopup="true">
-                  {n.label} <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
-                </Link>
-                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+              <div
+                key={n.to}
+                className="group relative"
+                data-open={subOpen}
+                onMouseLeave={() => setSubOpen(false)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) setSubOpen(false);
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setSubOpen((v) => !v)}
+                  aria-haspopup="true"
+                  aria-expanded={subOpen}
+                  className={`${linkCls} inline-flex items-center gap-1 ${isBooks ? "text-primary" : ""}`}
+                >
+                  {n.label}{" "}
+                  <span className="text-xs transition-transform group-hover:rotate-180 group-data-[open=true]:rotate-180">▾</span>
+                </button>
+                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-all group-hover:visible group-hover:opacity-100 group-data-[open=true]:visible group-data-[open=true]:opacity-100">
                   <div className="flex min-w-40 flex-col rounded-md border border-border bg-popover p-2 shadow-glow">
                     {n.children.map((c) => (
                       <Link
                         key={c.to}
                         to={c.to}
+                        onClick={() => setSubOpen(false)}
                         activeOptions={{ exact: true }}
                         className="rounded-sm px-4 py-2 font-display text-lg text-muted-foreground hover:bg-secondary hover:text-primary data-[status=active]:text-primary"
                       >
@@ -76,17 +95,27 @@ export function SiteHeader() {
         <nav className="flex flex-col gap-3 border-t border-border px-6 py-5 md:hidden">
           {nav.map((n) => (
             <div key={n.to}>
-              <Link to={n.to} onClick={() => setOpen(false)} className="font-display text-2xl text-foreground">
-                {n.label}
-              </Link>
-              {n.children && (
-                <div className="mt-2 flex gap-5 border-l border-primary/40 pl-4">
-                  {n.children.map((c) => (
-                    <Link key={c.to} to={c.to} onClick={() => setOpen(false)} className="font-display text-xl text-primary">
-                      {c.label}
-                    </Link>
-                  ))}
-                </div>
+              {n.children ? (
+                <>
+                  <p className="font-display text-2xl text-foreground">{n.label}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-3">
+                    {n.children.map((c) => (
+                      <Link
+                        key={c.to}
+                        to={c.to}
+                        activeOptions={{ exact: true }}
+                        onClick={() => setOpen(false)}
+                        className="flex min-h-12 items-center justify-center rounded-md border border-border font-display text-xl text-primary active:bg-secondary data-[status=active]:border-primary data-[status=active]:bg-secondary"
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <Link to={n.to} onClick={() => setOpen(false)} className="block py-1 font-display text-2xl text-foreground">
+                  {n.label}
+                </Link>
               )}
             </div>
           ))}
