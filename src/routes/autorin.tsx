@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Sparks } from "@/components/site";
+import { bookListPath, useBookLang } from "@/lib/book-lang";
 
 export const Route = createFileRoute("/autorin")({
   head: () => ({
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/autorin")({
 });
 
 function Author() {
+  const lang = useBookLang();
   return (
     <section className="relative overflow-hidden px-6 pt-36">
       <Sparks count={16} />
@@ -21,7 +23,7 @@ function Author() {
         <div className="relative mx-auto w-full max-w-md">
           <div className="absolute -inset-4 rounded-full border border-primary/40" />
           <div className="absolute -inset-10 rounded-full border border-primary/15" />
-          <img src="/lilly.png" alt="Lilly Labord" className="animate-rise relative aspect-square w-full rounded-full object-cover shadow-glow" />
+          <img src="/lilly-portrait.jpg" alt="Lilly Labord" className="animate-rise relative aspect-square w-full rounded-full object-cover shadow-glow" />
         </div>
         <div className="animate-rise">
           <p className="font-display text-sm uppercase tracking-[0.4em] text-primary">Über mich</p>
@@ -37,7 +39,7 @@ function Author() {
           <div className="mt-10 flex flex-wrap gap-6 font-display text-xl">
             <a href="https://www.facebook.com/@LillyLabord/" target="_blank" rel="noreferrer" className="text-primary hover:underline">Facebook ↗</a>
             <a href="https://www.instagram.com/lillylabord" target="_blank" rel="noreferrer" className="text-primary hover:underline">Instagram ↗</a>
-            <Link to="/buecher" className="text-primary hover:underline">Meine Bücher →</Link>
+            <Link to={bookListPath(lang)} className="text-primary hover:underline">Meine Bücher →</Link>
           </div>
         </div>
       </div>
