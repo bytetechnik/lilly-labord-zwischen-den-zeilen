@@ -43,9 +43,8 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-        <Link to="/" className="flex items-center gap-2 font-script text-3xl text-gilded leading-none pt-1">
-          <img src={logoMark} alt="" width={32} height={32} className="h-8 w-8 -mt-1" />
-          Lilly Labord
+        <Link to="/" aria-label="Lilly Labord – Start" className="flex items-center">
+          <img src={logoMark} alt="Lilly Labord" width={40} height={40} className="h-10 w-10" />
         </Link>
         <nav className="hidden gap-7 md:flex">
           {nav.map((n) =>
