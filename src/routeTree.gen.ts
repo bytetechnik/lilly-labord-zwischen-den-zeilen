@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AutorinRouteImport } from './routes/autorin'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BooksRouteImport } from './routes/books'
 import { Route as BuchtippRouteImport } from './routes/buchtipp'
 import { Route as DatenschutzRouteImport } from './routes/datenschutz'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -32,6 +33,11 @@ const AutorinRoute = AutorinRouteImport.update({
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksRoute = BooksRouteImport.update({
+  id: '/books',
+  path: '/books',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuchtippRoute = BuchtippRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/autorin': typeof AutorinRoute
   '/blog': typeof BlogRoute
+  '/books': typeof BooksRoute
   '/buchtipp': typeof BuchtippRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/autorin': typeof AutorinRoute
   '/blog': typeof BlogRoute
+  '/books': typeof BooksRoute
   '/buchtipp': typeof BuchtippRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/autorin': typeof AutorinRoute
   '/blog': typeof BlogRoute
+  '/books': typeof BooksRoute
   '/buchtipp': typeof BuchtippRoute
   '/datenschutz': typeof DatenschutzRoute
   '/faq': typeof FaqRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autorin'
     | '/blog'
+    | '/books'
     | '/buchtipp'
     | '/datenschutz'
     | '/faq'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autorin'
     | '/blog'
+    | '/books'
     | '/buchtipp'
     | '/datenschutz'
     | '/faq'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/autorin'
     | '/blog'
+    | '/books'
     | '/buchtipp'
     | '/datenschutz'
     | '/faq'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AutorinRoute: typeof AutorinRoute
   BlogRoute: typeof BlogRoute
+  BooksRoute: typeof BooksRoute
   BuchtippRoute: typeof BuchtippRoute
   DatenschutzRoute: typeof DatenschutzRoute
   FaqRoute: typeof FaqRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books': {
+      id: '/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof BooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buchtipp': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AutorinRoute: AutorinRoute,
   BlogRoute: BlogRoute,
+  BooksRoute: BooksRoute,
   BuchtippRoute: BuchtippRoute,
   DatenschutzRoute: DatenschutzRoute,
   FaqRoute: FaqRoute,
