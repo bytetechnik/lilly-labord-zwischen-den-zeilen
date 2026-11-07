@@ -105,6 +105,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
   animation: shimmer 8s linear infinite;
 }
 
