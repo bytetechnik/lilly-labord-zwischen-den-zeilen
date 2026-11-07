@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { BookFinder } from "@/components/BookFinder";
 import { books, categories, type Category } from "@/lib/books";
 import { blurbsEn, categoryEn } from "@/lib/books-en";
 import { GoldButton, PageTitle } from "@/components/site";
@@ -24,6 +25,7 @@ function BooksEn() {
       <PageTitle eyebrow="The Library · English" title="My Books">
         Original German titles, English blurbs. All books are written in German.
       </PageTitle>
+      <BookFinder lang="en" />
       <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3 px-6">
         {(["All", ...categories] as const).map((c) => (
           <button

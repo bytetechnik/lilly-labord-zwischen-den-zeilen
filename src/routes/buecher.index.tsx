@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { BookFinder } from "@/components/BookFinder";
 import { books, categories, type Category } from "@/lib/books";
 import { BookCard, PageTitle } from "@/components/site";
 
@@ -23,6 +24,7 @@ function BooksPage() {
       <PageTitle eyebrow="Die Bibliothek" title="Meine Bücher">
         {books.length} Geschichten voller Magie, Geheimnisse und Herz.
       </PageTitle>
+      <BookFinder lang="de" />
       <div className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3 px-6">
         {(["Alle", ...categories] as const).map((c) => (
           <button
