@@ -2,15 +2,30 @@ import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import type { Book } from "@/lib/books";
 
-const nav = [
+type NavItem = {
+  to: "/" | "/buecher" | "/autorin" | "/buchtipp" | "/blog" | "/faq";
+  label: string;
+  children?: { to: "/buecher" | "/books"; label: string }[];
+};
+
+const nav: NavItem[] = [
   { to: "/", label: "Start" },
-  { to: "/buecher", label: "Bücher" },
+  {
+    to: "/buecher",
+    label: "Bücher",
+    children: [
+      { to: "/buecher", label: "Deutsch" },
+      { to: "/books", label: "English" },
+    ],
+  },
   { to: "/autorin", label: "Über mich" },
   { to: "/buchtipp", label: "Buchtipp" },
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
-  { to: "/books", label: "English" },
-] as const;
+];
+
+const linkCls =
+  "font-display text-lg tracking-wide text-muted-foreground transition-colors hover:text-primary data-[status=active]:text-primary";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -21,16 +36,33 @@ export function SiteHeader() {
           Lilly Labord
         </Link>
         <nav className="hidden gap-7 md:flex">
-          {nav.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              activeOptions={{ exact: n.to === "/" }}
-              className="font-display text-lg tracking-wide text-muted-foreground transition-colors hover:text-primary data-[status=active]:text-primary"
-            >
-              {n.label}
-            </Link>
-          ))}
+          {nav.map((n) =>
+            n.children ? (
+              <div key={n.to} className="group relative">
+                <Link to={n.to} className={`${linkCls} inline-flex items-center gap-1`} aria-haspopup="true">
+                  {n.label} <span className="text-xs transition-transform group-hover:rotate-180">▾</span>
+                </Link>
+                <div className="invisible absolute left-1/2 top-full -translate-x-1/2 pt-3 opacity-0 transition-all group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                  <div className="flex min-w-40 flex-col rounded-md border border-border bg-popover p-2 shadow-glow">
+                    {n.children.map((c) => (
+                      <Link
+                        key={c.to}
+                        to={c.to}
+                        activeOptions={{ exact: true }}
+                        className="rounded-sm px-4 py-2 font-display text-lg text-muted-foreground hover:bg-secondary hover:text-primary data-[status=active]:text-primary"
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === "/" }} className={linkCls}>
+                {n.label}
+              </Link>
+            ),
+          )}
         </nav>
         <button
           className="font-display text-lg text-primary md:hidden"
@@ -43,9 +75,20 @@ export function SiteHeader() {
       {open && (
         <nav className="flex flex-col gap-3 border-t border-border px-6 py-5 md:hidden">
           {nav.map((n) => (
-            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="font-display text-2xl text-foreground">
-              {n.label}
-            </Link>
+            <div key={n.to}>
+              <Link to={n.to} onClick={() => setOpen(false)} className="font-display text-2xl text-foreground">
+                {n.label}
+              </Link>
+              {n.children && (
+                <div className="mt-2 flex gap-5 border-l border-primary/40 pl-4">
+                  {n.children.map((c) => (
+                    <Link key={c.to} to={c.to} onClick={() => setOpen(false)} className="font-display text-xl text-primary">
+                      {c.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </nav>
       )}
