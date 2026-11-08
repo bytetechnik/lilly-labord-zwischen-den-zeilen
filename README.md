@@ -26,3 +26,15 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Deploy on Netlify
+
+The checked-in `netlify.toml` sets the build command to `bun run build` and the
+publish directory to `dist` (not `dist/client`). On Netlify, Vite selects Nitro's
+Netlify preset, which also generates the server functions required by this app.
+Lovable preview and publishing retain their default deployment target.
+
+Push these changes to the branch connected to Netlify, then trigger a new deploy.
+The repository settings override the old publish-directory setting in Netlify.
+For book recommendations, configure `LOVABLE_API_KEY` securely in Netlify's
+environment variables; never put its value in the repository.
