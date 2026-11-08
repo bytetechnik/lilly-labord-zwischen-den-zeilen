@@ -1,4 +1,3 @@
-// @vitest-environment node
 import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -25,7 +24,7 @@ describe("Deployment configuration", () => {
   });
 
   it("publishes the public directory produced by the Netlify preset", () => {
-    const config = readFileSync(new URL("../../netlify.toml", import.meta.url), "utf8");
+    const config = readFileSync("netlify.toml", "utf8");
     expect(config).toMatch(/^\s*publish\s*=\s*"dist"\s*$/m);
     expect(config).toMatch(/^\s*command\s*=\s*"bun run build"\s*$/m);
   });
