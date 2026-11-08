@@ -30,3 +30,4 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Book recommendation search runs server-side via Lovable AI (src/lib/book-match.*) and only returns IDs from the local catalog in src/lib/books.ts — keeps the API key off the client and prevents invented books.
+- Select Nitro's Netlify preset only when `NETLIFY=true` and publish `dist` via `netlify.toml` — generates Netlify server functions without changing Lovable's default target.
