@@ -35,7 +35,7 @@ describe("Deployment configuration", () => {
     vi.stubEnv("NETLIFY", "true");
     const { deploymentOptions } = await import("../../vite.config");
     const config = deploymentOptions("cpanel");
-    expect(config.nitro).toBe(false);
+    expect(config).toHaveProperty("nitro", false);
     expect(config.tanstackStart.prerender).toEqual({
       enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false, failOnError: true,
     });

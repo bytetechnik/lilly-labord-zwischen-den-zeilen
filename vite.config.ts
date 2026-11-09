@@ -29,4 +29,4 @@ export const deploymentOptions = (mode: string) => ({
   },
 });
 
-export default defineConfig((env) => defineConfig(deploymentOptions(env.mode))(env));
+export default defineConfig(deploymentOptions("production"));
