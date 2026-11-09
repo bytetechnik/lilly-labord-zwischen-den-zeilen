@@ -29,5 +29,6 @@ use the editor.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
 
-- Book recommendation search runs server-side via Lovable AI (src/lib/book-match.*) and only returns IDs from the local catalog in src/lib/books.ts — keeps the API key off the client and prevents invented books.
+- BookFinder is a browser-only placeholder with no network requests or matches; any future AI integration must remain server-side to keep credentials private.
 - Select Nitro's Netlify preset only when `NETLIFY=true` and publish `dist` via `netlify.toml` — generates Netlify server functions without changing Lovable's default target.
+- Use `build:cpanel` to prerender the explicit public-page list and flatten only `dist/client` into `dist`; cPanel must receive HTML/assets/.htaccess, never the server bundle.

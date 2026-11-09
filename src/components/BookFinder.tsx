@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { books } from "@/lib/books";
-import { findBooks } from "@/lib/book-match.functions";
 
 const copy = {
   de: {
@@ -29,26 +27,15 @@ const copy = {
 
 export function BookFinder({ lang }: { lang: "de" | "en" }) {
   const t = copy[lang];
-  const run = useServerFn(findBooks);
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  const loading = false;
   const [error, setError] = useState<string | null>(null);
-  const [results, setResults] = useState<{ id: number; reason: string }[] | null>(null);
+  const results: { id: number; reason: string }[] | null = null;
 
-  async function search(q: string) {
+  function search(q: string) {
     if (q.trim().length < 3) return setError(t.short);
-    setLoading(true);
-    setError(null);
-    setResults(null);
-    try {
-      const res = await run({ data: { query: q, lang } });
-      setError(res.error);
-      setResults(res.error ? null : res.matches);
-    } catch {
-      setError(lang === "en" ? "Something went wrong. Please try again." : "Etwas ist schiefgegangen. Bitte versuche es erneut.");
-    } finally {
-      setLoading(false);
-    }
+    // Placeholder only: no requests, invented matches, or AI credentials.
+    setError(lang === "en" ? "The search is unavailable right now." : "Die Suche ist gerade nicht verfügbar.");
   }
 
   return (

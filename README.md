@@ -36,5 +36,25 @@ Lovable preview and publishing retain their default deployment target.
 
 Push these changes to the branch connected to Netlify, then trigger a new deploy.
 The repository settings override the old publish-directory setting in Netlify.
-For book recommendations, configure `LOVABLE_API_KEY` securely in Netlify's
-environment variables; never put its value in the repository.
+The reading-preference search is currently a placeholder and does not call AI.
+
+## Deploy on cPanel (static shared hosting)
+
+1. On your computer or CI, install dependencies with `bun install` and run
+   `bun run build:cpanel`. cPanel itself does not need Bun, Node.js, or an API key.
+2. Upload **all contents inside `dist/`** to the domain's document root
+   (usually `public_html/`), not the `dist` folder itself. Include the hidden
+   `.htaccess` file; enable “Show Hidden Files” in cPanel File Manager.
+3. Keep the `assets/`, `covers/`, and page directories intact. Deploy at the
+   domain root, not in a subfolder. Do not upload source files or `dist/server`.
+4. Open `/`, `/books`, `/buecher`, and a book-detail URL directly, then refresh
+   each page. The export contains a separate HTML file for every current page
+   and all 15 book details, so no application server is needed.
+
+The design, German content, English blurbs, language selection, filters, and
+purchase links are unchanged. The search box remains visible and editable;
+submitting shows the existing “search unavailable” message without contacting
+AI or generating recommendations. Fonts still load from Google Fonts.
+
+Ordinary `bun run build` keeps the existing Lovable/Netlify deployment target;
+use `build:cpanel` specifically for an upload-only static `dist` folder.
