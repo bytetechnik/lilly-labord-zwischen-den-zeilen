@@ -29,4 +29,4 @@ export const deploymentOptions = (mode: string) => ({
   },
 });
 
-export default defineConfig(({ mode }) => defineConfig(deploymentOptions(mode))({ mode, command: "build" }));
+export default defineConfig((env) => defineConfig(deploymentOptions(env.mode))(env));

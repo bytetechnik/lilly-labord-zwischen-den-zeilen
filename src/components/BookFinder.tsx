@@ -28,9 +28,9 @@ const copy = {
 export function BookFinder({ lang }: { lang: "de" | "en" }) {
   const t = copy[lang];
   const [query, setQuery] = useState("");
-  const loading = false;
+  const [loading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const results: { id: number; reason: string }[] | null = null;
+  const [results] = useState<{ id: number; reason: string }[] | null>(null);
 
   function search(q: string) {
     if (q.trim().length < 3) return setError(t.short);
