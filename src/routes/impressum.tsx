@@ -8,6 +8,8 @@ export const Route = createFileRoute("/impressum")({
       { name: "description", content: "Impressum der Website von Lilly Labord." },
       { property: "og:title", content: "Impressum – Lilly Labord" },
       { property: "og:description", content: "Angaben gemäß Impressumspflicht." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Impressum,

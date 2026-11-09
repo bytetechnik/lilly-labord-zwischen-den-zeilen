@@ -8,6 +8,8 @@ export const Route = createFileRoute("/buchtipp")({
       { name: "description", content: "Lillys aktuelle Empfehlung: „Der Drache im Fabergé-Ei“ von C. C. Ravenmiller." },
       { property: "og:title", content: "Lillys Buchtipp: Der Drache im Fabergé-Ei" },
       { property: "og:description", content: "Eine magische Verwechslung mit ungeheuerlichen Folgen." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Tip,

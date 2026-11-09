@@ -9,6 +9,8 @@ export const Route = createFileRoute("/autorin")({
       { name: "description", content: "Lilly Labord lebt in Frankfurt am Main mit drei Katzen und schreibt Urban Fantasy und Paranormal Romance." },
       { property: "og:title", content: "Über Lilly Labord" },
       { property: "og:description", content: "„Schreiben ist die Stimme meiner Seele.“" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Author,

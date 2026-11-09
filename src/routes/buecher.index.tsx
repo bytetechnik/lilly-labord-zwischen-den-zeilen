@@ -11,6 +11,8 @@ export const Route = createFileRoute("/buecher/")({
       { name: "description", content: "Alle Romane von Lilly Labord: Mr. Dalton, Mr. Nigh, Anastasia Bane, Zauber & Stab und viele mehr." },
       { property: "og:title", content: "Alle Bücher von Lilly Labord" },
       { property: "og:description", content: "Magie, Spannung, Entspannung – und Romane ganz ohne Paranormales." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BooksPage,
