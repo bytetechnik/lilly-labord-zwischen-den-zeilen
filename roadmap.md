@@ -6,4 +6,4 @@
 # npm build correction
 - [x] Make the default npm build export cPanel files without requiring Bun.
 - [x] Keep a separate hosted build command and update upload instructions.
-- [ ] Run Node-only packaging and default-command regression tests.
+- [x] Run Node-only packaging and default-command regression tests (seven passing tests).
