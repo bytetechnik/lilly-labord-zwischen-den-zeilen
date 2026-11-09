@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, readdir, rename, rm, stat } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rename, rm, stat, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -15,6 +15,8 @@ export async function exportCpanel(root = process.cwd()) {
     if (!html.includes("<html") || !html.includes("Lilly")) {
       throw new Error(`Static page is missing or incomplete: ${path}`);
     }
+    // Start prefixes the relative base with "/"; make file addresses folder-independent.
+    await writeFile(resolve(client, path), html.replaceAll("/./", "./"));
   }
   await stat(resolve(client, "assets"));
   await stat(resolve(client, ".htaccess"));
