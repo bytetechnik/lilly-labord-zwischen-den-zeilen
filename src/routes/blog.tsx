@@ -9,6 +9,8 @@ export const Route = createFileRoute("/blog")({
       { name: "description", content: "Schreibtipps, Buchneuigkeiten, Blicke hinter die Kulissen und Rezensionen von Lilly Labord." },
       { property: "og:title", content: "Blog – Lilly Labord" },
       { property: "og:description", content: "Schreibtipps, Buchneuigkeiten, Hinter den Kulissen und Rezensionen." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Blog,

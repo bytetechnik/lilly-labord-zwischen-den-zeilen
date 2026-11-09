@@ -8,6 +8,8 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: "Wo gibt es Lillys Bücher, Hörbücher, Lesereihenfolge, Signaturen und das nächste Buch." },
       { property: "og:title", content: "FAQ – Lilly Labord" },
       { property: "og:description", content: "Antworten auf die häufigsten Fragen rund um Lillys Bücher." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Faq,

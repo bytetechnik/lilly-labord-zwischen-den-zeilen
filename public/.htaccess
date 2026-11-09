@@ -1,0 +1,12 @@
+DirectoryIndex index.html
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Serve real assets and prerendered page directories directly.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  # Unknown paths use the site's existing not-found view.
+  RewriteRule ^ index.html [L]
+</IfModule>

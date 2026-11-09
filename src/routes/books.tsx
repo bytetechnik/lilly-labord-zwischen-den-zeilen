@@ -12,6 +12,8 @@ export const Route = createFileRoute("/books")({
       { name: "description", content: "All of Lilly Labord's novels with English descriptions: urban fantasy, paranormal romance and cosy crime." },
       { property: "og:title", content: "Lilly Labord – Books (English)" },
       { property: "og:description", content: "Magic, suspense, feel-good stories and romance — described in English." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BooksEn,

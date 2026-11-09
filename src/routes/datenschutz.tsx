@@ -10,6 +10,8 @@ export const Route = createFileRoute("/datenschutz")({
       { name: "description", content: "Datenschutzerklärung der Website von Lilly Labord." },
       { property: "og:title", content: "Datenschutz – Lilly Labord" },
       { property: "og:description", content: "Informationen zur Verarbeitung personenbezogener Daten." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Datenschutz,

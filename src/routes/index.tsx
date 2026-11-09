@@ -12,6 +12,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Die Autorin von „Zum Kaffee bei Mr. Dalton“: Urban Fantasy, Paranormal Romance und Cosy Crime aus Frankfurt am Main." },
       { property: "og:title", content: "Lilly Labord – Autorin" },
       { property: "og:description", content: "Urban Fantasy, Paranormal Romance und Cosy Crime. Was möchtest du lesen?" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
