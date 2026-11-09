@@ -20,7 +20,7 @@ describe("cPanel subfolder addresses", () => {
   });
 
   it("matches lists and book details below /lilly", () => {
-    for (const [path, routeId] of [["/lilly/", "/"], ["/lilly/books", "/books"], ["/lilly/buecher/zum-kaffee-bei-mr-dalton", "/buecher/$slug"]]) {
+    for (const [path, routeId] of [["/lilly/", "/"], ["/lilly/books", "/books"], ["/lilly/buecher/zum-kaffee-bei-mr-dalton", "/buecher/$slug"]] as const) {
       const router = createRouter({ routeTree, basepath: "/lilly/", history: createMemoryHistory({ initialEntries: [path] }), context: { queryClient: new QueryClient() } });
       expect(router.matchRoutes(router.latestLocation.pathname).at(-1)?.routeId).toBe(routeId);
       expect(router.buildLocation({ to: "/books" }).publicHref).toBe("/lilly/books");
