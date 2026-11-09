@@ -8,16 +8,15 @@
 // hosting already compresses at the edge.
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import { cpanelPaths } from "./src/lib/static-pages";
 
 export const deploymentOptions = (mode: string) => ({
-  ...(mode === "cpanel" ? { vite: { base: "/lilly/" } } : {}),
+  ...(mode === "cpanel" ? { vite: { base: "./" } } : {}),
   // Netlify needs its own server-function output; Lovable keeps the default target.
   ...(mode === "cpanel" ? { nitro: false as const } : process.env["NETLIFY"] === "true" ? { nitro: { preset: "netlify" } } : {}),
   tanstackStart: {
     ...(mode === "cpanel" ? {
-      router: { basepath: "/lilly" },
-      pages: cpanelPaths.map((path) => ({ path: `/lilly${path}` })),
+      // Hash routing: one prerendered entry page serves every address in any folder.
+      pages: [{ path: "/" }],
       prerender: {
         enabled: true,
         autoStaticPathsDiscovery: false,
