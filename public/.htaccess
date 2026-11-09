@@ -3,6 +3,7 @@ Options -MultiViews
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Relative fallback stays inside the upload folder (including /lilly/).
   # Serve real assets and prerendered page directories directly.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d

@@ -43,12 +43,12 @@ The reading-preference search is currently a placeholder and does not call AI.
 1. On your computer or CI, use Node.js 22+, install dependencies with `npm install`,
    and run `npm run build`. No Bun installation is required. cPanel itself does
    not need Node.js or an API key.
-2. Upload **all contents inside `dist/`** to the domain's document root
-   (usually `public_html/`), not the `dist` folder itself. Include the hidden
+2. Upload **all contents inside `dist/`** to `public_html/lilly/`,
+   not the `dist` folder itself. Include the hidden
    `.htaccess` file; enable “Show Hidden Files” in cPanel File Manager.
 3. Keep the `assets/`, `covers/`, and page directories intact. Deploy at the
-   domain root, not in a subfolder. Do not upload source files or `dist/server`.
-4. Open `/`, `/books`, `/buecher`, and a book-detail URL directly, then refresh
+   `/lilly/` path. Do not upload source files or `dist/server`.
+4. Open `/lilly/`, `/lilly/books`, `/lilly/buecher`, and a book-detail URL directly, then refresh
    each page. The export contains a separate HTML file for every current page
    and all 15 book details, so no application server is needed.
 
@@ -59,4 +59,6 @@ AI or generating recommendations. Fonts still load from Google Fonts.
 
 `npm run build` produces the upload-only static `dist` folder and removes any
 old `.output` folder after a successful export. `npm run build:cpanel` is an alias.
+The cPanel build uses `/lilly/` for navigation, scripts, styles, images and the
+favicon; the Lovable preview and hosted build continue to use `/`.
 Use `npm run build:hosted` only for the previous Lovable/Netlify server target.

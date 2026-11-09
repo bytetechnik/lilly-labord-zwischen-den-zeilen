@@ -11,11 +11,13 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { cpanelPaths } from "./src/lib/static-pages";
 
 export const deploymentOptions = (mode: string) => ({
+  ...(mode === "cpanel" ? { vite: { base: "/lilly/" } } : {}),
   // Netlify needs its own server-function output; Lovable keeps the default target.
   ...(mode === "cpanel" ? { nitro: false as const } : process.env["NETLIFY"] === "true" ? { nitro: { preset: "netlify" } } : {}),
   tanstackStart: {
     ...(mode === "cpanel" ? {
-      pages: cpanelPaths.map((path) => ({ path })),
+      router: { basepath: "/lilly" },
+      pages: cpanelPaths.map((path) => ({ path: `/lilly${path}` })),
       prerender: {
         enabled: true,
         autoStaticPathsDiscovery: false,

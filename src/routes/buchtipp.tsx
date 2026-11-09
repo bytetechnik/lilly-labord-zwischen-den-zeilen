@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageTitle } from "@/components/site";
+import { publicAsset } from "@/lib/site-path";
 
 export const Route = createFileRoute("/buchtipp")({
   head: () => ({
@@ -21,7 +22,7 @@ function Tip() {
       <PageTitle eyebrow="Meine aktuelle Empfehlung" title="Buchtipp" />
       <article className="mx-auto max-w-5xl px-6">
         <div className="parchment-panel grid gap-12 rounded-md p-8 shadow-book md:grid-cols-[1fr_2fr] md:p-14">
-          <img src="/covers/tipp.jpg" alt="Der Drache im Fabergé-Ei" className="mx-auto w-64 rotate-[-3deg] rounded-sm shadow-book md:w-full" />
+          <img src={publicAsset("covers/tipp.jpg")} alt="Der Drache im Fabergé-Ei" className="mx-auto w-64 rotate-[-3deg] rounded-sm shadow-book md:w-full" />
           <div>
             <h2 className="text-5xl">Der Drache im Fabergé-Ei</h2>
             <p className="mt-2 font-display text-xl italic">

@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { setBookLang } from "@/lib/book-lang";
+import { routePath } from "@/lib/site-path";
 import type { Book } from "@/lib/books";
 import logoMark from "@/assets/logo-mark-small.png";
 
@@ -32,7 +33,7 @@ const linkCls =
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [subOpen, setSubOpen] = useState(false);
-  const path = useRouterState({ select: (s) => s.location.pathname });
+  const path = useRouterState({ select: (s) => routePath(s.location.pathname) });
   const isBooks = path.startsWith("/buecher") || path.startsWith("/books");
   useEffect(() => {
     setOpen(false);
