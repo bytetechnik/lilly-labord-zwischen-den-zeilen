@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Sparks } from "@/components/site";
 import { bookListPath, useBookLang } from "@/lib/book-lang";
+import { publicAsset } from "@/lib/site-path";
 
 export const Route = createFileRoute("/autorin")({
   head: () => ({
@@ -25,7 +26,7 @@ function Author() {
         <div className="relative mx-auto w-full max-w-md">
           <div className="absolute -inset-4 rounded-full border border-primary/40" />
           <div className="absolute -inset-10 rounded-full border border-primary/15" />
-          <img src="/lilly-portrait.jpg" alt="Lilly Labord" className="animate-rise relative aspect-square w-full rounded-full object-cover shadow-glow" />
+          <img src={publicAsset("lilly-portrait.jpg")} alt="Lilly Labord" className="animate-rise relative aspect-square w-full rounded-full object-cover shadow-glow" />
         </div>
         <div className="animate-rise">
           <p className="font-display text-sm uppercase tracking-[0.4em] text-primary">Über mich</p>

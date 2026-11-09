@@ -23,6 +23,7 @@ describe("Deployment configuration", () => {
     const { deploymentOptions } = await import("../../vite.config");
     const config = deploymentOptions("production");
     expect(config).not.toHaveProperty("nitro");
+    expect(config).not.toHaveProperty("vite.base");
   });
 
   it("publishes the public directory produced by the Netlify preset", () => {
@@ -36,6 +37,9 @@ describe("Deployment configuration", () => {
     const { deploymentOptions } = await import("../../vite.config");
     const config = deploymentOptions("cpanel");
     expect(config).toHaveProperty("nitro", false);
+    expect(config).toHaveProperty("vite.base", "/lilly/");
+    expect(config.tanstackStart).toHaveProperty("router.basepath", "/lilly");
+    expect(config.tanstackStart.pages?.map((page) => page.path)).toEqual(cpanelExportPaths());
     expect(config.tanstackStart.prerender).toEqual({
       enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false, failOnError: true,
     });
@@ -58,3 +62,8 @@ describe("Deployment configuration", () => {
     expect(scripts["build:hosted"]).toBe("vite build");
   });
 });
+
+function cpanelExportPaths() {
+  return ["/lilly/", "/lilly/autorin", "/lilly/blog", "/lilly/books", "/lilly/buchtipp", "/lilly/buecher", "/lilly/datenschutz", "/lilly/faq", "/lilly/impressum",
+    "/lilly/buecher/k-ein-chihuahua-zu-ostern", "/lilly/buecher/eine-katze-namens-christmas", "/lilly/buecher/liebe-hat-einen-vogel", "/lilly/buecher/rosenmaedchen", "/lilly/buecher/waffeln-fuer-whitehall", "/lilly/buecher/das-kriegen-wir-gebacken", "/lilly/buecher/die-torte-der-wuensche", "/lilly/buecher/ueber-irische-wiesen", "/lilly/buecher/zauber-und-stab-1", "/lilly/buecher/z auber-und-stab-1".replace("z auber", "zum-kaffee-bei-mr-dalton").replace("-und-stab-1", ""), "/lilly/buecher/das-geheimnis-der-blauen-schale", "/lilly/buecher/der-magische-besen-des-ian-mccormack", "/lilly/buecher/das-magische-kompendium-der-anastasia-bane", "/lilly/buecher/mr-nigh", "/lilly/buecher/the-athanor-academy"];
+}

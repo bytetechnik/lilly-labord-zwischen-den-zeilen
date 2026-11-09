@@ -4,6 +4,7 @@ import hero from "@/assets/hero-study.jpg";
 import { books, categories, type Category } from "@/lib/books";
 import { BookCard, GoldButton, Sparks } from "@/components/site";
 import { bookListPath, useBookLang } from "@/lib/book-lang";
+import { publicAsset } from "@/lib/site-path";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -129,7 +130,7 @@ function Index() {
       {/* Author teaser */}
       <section className="mx-auto max-w-5xl px-6 pt-36">
         <div className="parchment-panel relative grid items-center gap-10 rounded-md p-10 shadow-book md:grid-cols-[1fr_2fr] md:p-14">
-          <img src="/lilly-portrait.jpg" alt="Lilly Labord" loading="lazy" className="mx-auto w-56 rounded-full border-4 border-gold object-cover" />
+          <img src={publicAsset("lilly-portrait.jpg")} alt="Lilly Labord" loading="lazy" className="mx-auto w-56 rounded-full border-4 border-gold object-cover" />
           <div>
             <p className="font-script text-5xl">Hi, ich bin Lilly</p>
             <p className="mt-4 text-lg">
