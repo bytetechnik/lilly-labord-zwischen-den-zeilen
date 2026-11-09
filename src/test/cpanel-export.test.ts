@@ -9,9 +9,6 @@ describe("cPanel upload packaging", () => {
   it("puts static pages and hidden Apache settings in dist without server code", () => {
     const root = mkdtempSync(join(tmpdir(), "cpanel-export-"));
     try {
-      mkdirSync(join(root, "src/lib"), { recursive: true });
-      cpSync("src/lib/books.ts", join(root, "src/lib/books.ts"));
-      cpSync("src/lib/static-pages.ts", join(root, "src/lib/static-pages.ts"));
       for (const path of cpanelPaths) {
         const directory = join(root, "dist/client", path);
         mkdirSync(directory, { recursive: true });
@@ -22,7 +19,10 @@ describe("cPanel upload packaging", () => {
       cpSync("public/.htaccess", join(root, "dist/client/.htaccess"));
       mkdirSync(join(root, "dist/server"));
       writeFileSync(join(root, "dist/server/index.js"), "server-only");
-      execFileSync("bun", ["-e", `import { exportCpanel } from ${JSON.stringify(resolve("scripts/export-cpanel.mjs"))}; await exportCpanel(${JSON.stringify(root)});`]);
+      mkdirSync(join(root, ".output"));
+      writeFileSync(join(root, ".output/old-server.js"), "old output");
+      execFileSync("node", [resolve("scripts/export-cpanel.mjs")], { cwd: root });
+      expect(existsSync(join(root, ".output"))).toBe(false);
       expect(existsSync(join(root, "dist/server"))).toBe(false);
       expect(existsSync(join(root, "dist/client"))).toBe(false);
       expect(readFileSync(join(root, "dist/.htaccess"), "utf8")).toContain("DirectoryIndex index.html");

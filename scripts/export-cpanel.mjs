@@ -1,14 +1,17 @@
-import { cp, mkdir, readFile, rename, rm, stat } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rename, rm, stat } from "node:fs/promises";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 // Build tooling only; never imported by the browser or server runtime.
 export async function exportCpanel(root = process.cwd()) {
   const output = resolve(root, "dist");
   const client = resolve(output, "client");
   const staging = resolve(root, ".cpanel-export");
-  const { cpanelPaths } = await import(resolve(root, "src/lib/static-pages.ts"));
-  for (const path of cpanelPaths) {
-    const html = await readFile(resolve(client, `.${path === "/" ? "" : path}/index.html`), "utf8");
+  // Node-only packaging: inspect generated HTML, never import TypeScript sources.
+  await stat(resolve(client, "index.html"));
+  const pages = (await readdir(client, { recursive: true })).filter((path) => path === "index.html" || path.endsWith("/index.html") || path.endsWith("\\index.html"));
+  for (const path of pages) {
+    const html = await readFile(resolve(client, path), "utf8");
     if (!html.includes("<html") || !html.includes("Lilly")) {
       throw new Error(`Static page is missing or incomplete: ${path}`);
     }
@@ -20,9 +23,10 @@ export async function exportCpanel(root = process.cwd()) {
   await cp(client, staging, { recursive: true });
   await rm(output, { recursive: true, force: true });
   await rename(staging, output);
-  console.log(`cPanel export ready: upload everything inside dist, including .htaccess (${cpanelPaths.length} pages).`);
+  await rm(resolve(root, ".output"), { recursive: true, force: true });
+  console.log(`cPanel export ready: upload everything inside dist, including .htaccess (${pages.length} pages).`);
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === resolve(import.meta.filename)) {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   await exportCpanel();
 }

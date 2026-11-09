@@ -31,4 +31,4 @@ use the editor.
 
 - BookFinder is a browser-only placeholder with no network requests or matches; any future AI integration must remain server-side to keep credentials private.
 - Select Nitro's Netlify preset only when `NETLIFY=true` and publish `dist` via `netlify.toml` — generates Netlify server functions without changing Lovable's default target.
-- Use `build:cpanel` to prerender the explicit public-page list and flatten only `dist/client` into `dist`; cPanel must receive HTML/assets/.htaccess, never the server bundle.
+- Default `npm run build` (also `build:cpanel`) prerenders public pages and uses Node-only packaging to flatten `dist/client` into `dist`; reserve `build:hosted` for Lovable/Netlify so cPanel receives no server bundle or Bun dependency.
