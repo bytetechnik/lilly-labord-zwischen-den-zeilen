@@ -28,7 +28,7 @@ describe("Deployment configuration", () => {
   it("publishes the public directory produced by the Netlify preset", () => {
     const config = readFileSync("netlify.toml", "utf8");
     expect(config).toMatch(/^\s*publish\s*=\s*"dist"\s*$/m);
-    expect(config).toMatch(/^\s*command\s*=\s*"bun run build"\s*$/m);
+    expect(config).toMatch(/^\s*command\s*=\s*"npm run build:hosted"\s*$/m);
   });
 
   it("exports cPanel without a hosting server even when NETLIFY is set", async () => {
@@ -49,5 +49,12 @@ describe("Deployment configuration", () => {
       "/", "/books", "/buecher", "/autorin", "/blog", "/buchtipp", "/faq", "/impressum", "/datenschutz",
       ...books.map((book) => `/buecher/${book.slug}`),
     ]));
+  });
+
+  it("makes npm run build use the static cPanel target with Node, not Bun", () => {
+    const { scripts } = JSON.parse(readFileSync("package.json", "utf8"));
+    expect(scripts.build).toBe("vite build --config vite.cpanel.config.ts --mode cpanel && node scripts/export-cpanel.mjs");
+    expect(scripts["build:cpanel"]).toBe("npm run build");
+    expect(scripts["build:hosted"]).toBe("vite build");
   });
 });

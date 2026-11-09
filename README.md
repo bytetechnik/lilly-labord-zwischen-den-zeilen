@@ -29,7 +29,7 @@ npm run dev
 
 ## Deploy on Netlify
 
-The checked-in `netlify.toml` sets the build command to `bun run build` and the
+The checked-in `netlify.toml` sets the build command to `npm run build:hosted` and the
 publish directory to `dist` (not `dist/client`). On Netlify, Vite selects Nitro's
 Netlify preset, which also generates the server functions required by this app.
 Lovable preview and publishing retain their default deployment target.
@@ -40,8 +40,9 @@ The reading-preference search is currently a placeholder and does not call AI.
 
 ## Deploy on cPanel (static shared hosting)
 
-1. On your computer or CI, install dependencies with `bun install` and run
-   `bun run build:cpanel`. cPanel itself does not need Bun, Node.js, or an API key.
+1. On your computer or CI, use Node.js 22+, install dependencies with `npm install`,
+   and run `npm run build`. No Bun installation is required. cPanel itself does
+   not need Node.js or an API key.
 2. Upload **all contents inside `dist/`** to the domain's document root
    (usually `public_html/`), not the `dist` folder itself. Include the hidden
    `.htaccess` file; enable “Show Hidden Files” in cPanel File Manager.
@@ -56,5 +57,6 @@ purchase links are unchanged. The search box remains visible and editable;
 submitting shows the existing “search unavailable” message without contacting
 AI or generating recommendations. Fonts still load from Google Fonts.
 
-Ordinary `bun run build` keeps the existing Lovable/Netlify deployment target;
-use `build:cpanel` specifically for an upload-only static `dist` folder.
+`npm run build` produces the upload-only static `dist` folder and removes any
+old `.output` folder after a successful export. `npm run build:cpanel` is an alias.
+Use `npm run build:hosted` only for the previous Lovable/Netlify server target.
