@@ -4,26 +4,22 @@ import { createRouter, createMemoryHistory } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "@/routeTree.gen";
 
-describe("cPanel subfolder addresses", () => {
-  it("loads public media below /lilly/", () => {
-    expect(publicAsset("/covers/74.jpg", "/lilly/")).toBe("/lilly/covers/74.jpg");
-    expect(publicAsset("favicon.png", "/lilly/")).toBe("/lilly/favicon.png");
-    expect(publicAsset("lilly-portrait.jpg", "/lilly/")).toBe("/lilly/lilly-portrait.jpg");
+describe("folder-independent cPanel addresses", () => {
+  it("loads public media relative to whichever folder holds the site", () => {
+    expect(publicAsset("/covers/74.jpg", "./")).toBe("./covers/74.jpg");
+    expect(publicAsset("favicon.png", "./")).toBe("./favicon.png");
     expect(publicAsset("covers/74.jpg", "/")).toBe("/covers/74.jpg");
   });
 
-  it("recognizes language selections under /lilly without stripping similar names", () => {
-    expect(routePath("/lilly/books", "/lilly/")).toBe("/books");
-    expect(routePath("/lilly/buecher/", "/lilly/")).toBe("/buecher/");
-    expect(routePath("/lilly/", "/lilly/")).toBe("/");
-    expect(routePath("/lilly-other/books", "/lilly/")).toBe("/lilly-other/books");
+  it("keeps hash page addresses unchanged for language memory", () => {
+    expect(routePath("/books", "./")).toBe("/books");
+    expect(routePath("/buecher", "./")).toBe("/buecher");
   });
 
-  it("matches lists and book details below /lilly", () => {
-    for (const [path, routeId] of [["/lilly/", "/"], ["/lilly/books", "/books"], ["/lilly/buecher/zum-kaffee-bei-mr-dalton", "/buecher/$slug"]] as const) {
-      const router = createRouter({ routeTree, basepath: "/lilly/", history: createMemoryHistory({ initialEntries: [path] }), context: { queryClient: new QueryClient() } });
+  it("matches lists and book details without a folder prefix", () => {
+    for (const [path, routeId] of [["/", "/"], ["/books", "/books"], ["/buecher/zum-kaffee-bei-mr-dalton", "/buecher/$slug"]] as const) {
+      const router = createRouter({ routeTree, history: createMemoryHistory({ initialEntries: [path] }), context: { queryClient: new QueryClient() } });
       expect(router.matchRoutes(router.latestLocation.pathname).at(-1)?.routeId).toBe(routeId);
-      expect(router.buildLocation({ to: "/books" }).publicHref).toBe("/lilly/books");
     }
   });
 });
