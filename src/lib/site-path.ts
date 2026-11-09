@@ -1,5 +1,5 @@
 // Vite sets this to /lilly/ for cPanel and / for hosted builds and preview.
-export const siteBase = import.meta.env.BASE_URL || "/";
+export const siteBase = import.meta.env?.BASE_URL || "/";
 
 export function publicAsset(path: string, base = siteBase): string {
   return `${base.replace(/\/$/, "")}/${path.replace(/^\/+/, "")}`;

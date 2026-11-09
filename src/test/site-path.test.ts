@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { publicAsset, routePath } from "@/lib/site-path";
-import { createRouter } from "@tanstack/react-router";
+import { createRouter, createMemoryHistory } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "@/routeTree.gen";
 
@@ -20,9 +20,10 @@ describe("cPanel subfolder addresses", () => {
   });
 
   it("matches lists and book details below /lilly", () => {
-    const router = createRouter({ routeTree, basepath: "/lilly/", context: { queryClient: new QueryClient() } });
-    expect(router.matchRoutes("/lilly/").at(-1)?.routeId).toBe("/");
-    expect(router.matchRoutes("/lilly/books").at(-1)?.routeId).toBe("/books");
-    expect(router.matchRoutes("/lilly/buecher/zum-kaffee-bei-mr-dalton").at(-1)?.routeId).toBe("/buecher/$slug");
+    for (const [path, routeId] of [["/lilly/", "/"], ["/lilly/books", "/books"], ["/lilly/buecher/zum-kaffee-bei-mr-dalton", "/buecher/$slug"]]) {
+      const router = createRouter({ routeTree, basepath: "/lilly/", history: createMemoryHistory({ initialEntries: [path] }), context: { queryClient: new QueryClient() } });
+      expect(router.matchRoutes(router.latestLocation.pathname).at(-1)?.routeId).toBe(routeId);
+      expect(router.buildLocation({ to: "/books" }).publicHref).toBe("/lilly/books");
+    }
   });
 });
